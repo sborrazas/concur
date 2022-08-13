@@ -6,11 +6,9 @@ defmodule Concur.MixProject do
       app: :concur,
       version: "0.1.0",
       elixir: "~> 1.13",
-
       description: "Concurrency and streams utilities",
       package: package(),
       docs: docs(),
-
       deps: deps(),
       dialyzer: dialyzer()
     ]
@@ -24,6 +22,7 @@ defmodule Concur.MixProject do
 
   defp deps do
     [
+      {:stream_split, "~> 0.1.0"},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]

@@ -41,6 +41,28 @@ Sem.wait() # => Blocks until the semaphore is unblocked
 Sem.signal() # => Unblocks semaphore. Process 2 continues executing
 ```
 
+### Buffered stream
+
+The `Concur.BufferedStream` provides way to map enumerable values in advance up to a certain amount of values (`buffer_size: 4` option).
+
+These values can also be loaded asynchronously (with `async?: true` option), meaning we don't have to wait for the previous value to be computed to calculate the next one.
+
+```elixir
+alias Concur.BufferedStream, as: BS
+
+[1, 2, 3]
+|> BufferedStream.map(fn i ->
+  # really long function that will take time to compute
+  # which will be executed in advance for up to 10 values
+end, buffer_size: 10)
+|> Enum.map(&IO.inspect/1)
+
+[1, 2, 3]
+|> BufferedStream.map(fn i ->
+  # ...
+end, buffer_size: 10, async?: true)
+```
+
 ## LICENSE
 
 See [LICENSE](LICENSE)
