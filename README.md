@@ -22,6 +22,8 @@ end
 
 ## Usage
 
+### Semaphore
+
 The `Concur.Semaphore` provides a full semaphores implementation for it to be
 used by either concurrent or synchronous code. It contains the two semaphore
 primitives: `wait` and `signal`. Here's an example:
@@ -61,6 +63,25 @@ end, buffer_size: 10)
 |> BufferedStream.map(fn i ->
   # ...
 end, buffer_size: 10, async?: true)
+```
+
+### Stateful Queue
+
+The `Concur.Stateful.Queue` module allows for a stateful FIFO behavior.
+
+```elixir
+alias Concur.Stateful.Queue
+
+{:ok, queue} = Queue.start()
+
+Queue.push(queue, 1)
+Queue.push(queue, 2)
+Queue.push(queue, 3)
+
+Queue.pop(queue) # => {:value, 1}
+Queue.pop(queue) # => {:value, 2}
+Queue.pop(queue) # => {:value, 3}
+Queue.pop(queue) # => :empty
 ```
 
 ## LICENSE
